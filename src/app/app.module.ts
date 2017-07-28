@@ -5,15 +5,18 @@ import { HttpModule } from '@angular/http';
 import {MdButtonModule} from '@angular/material';
 import {MdGridListModule} from '@angular/material';
 import {MdInputModule} from '@angular/material';
+import {MdCardModule} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { HashUserService, PRIVATE_KEY, PUBLIC_KEY } from './hash-user.service';
 import { SuperHeroService } from './superHero.service';
+import { CardComponent } from './card/card.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CardComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +25,8 @@ import { SuperHeroService } from './superHero.service';
     MdButtonModule,
     MdGridListModule,
     MdInputModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MdCardModule
   ],
   providers: [
     { provide: PRIVATE_KEY, useValue: '395b3c0f7c50cc9dac1f1d0368c1d8bda83931bf'},

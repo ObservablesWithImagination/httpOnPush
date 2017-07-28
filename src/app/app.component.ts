@@ -3,6 +3,8 @@ import { SuperHeroService } from './superHero.service';
 
 import { Observable } from 'rxjs/Observable';
 
+import { CardHero } from './card/card.entity';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -10,12 +12,20 @@ import { Observable } from 'rxjs/Observable';
 })
 export class AppComponent {
   heroName = '';
-  listHeros: Observable <string[]>;
+  listHeros: CardHero[];
   loading = false;
 
   constructor (private _superHeroService: SuperHeroService) {}
 
   lookforHero () {
-    this.listHeros = this._superHeroService.getHeroes(this.heroName);
+    this.loading = true;
+    this._superHeroService.getHeroes(this.heroName)
+    .subscribe(
+      data => { 
+        this.listHeros = data;
+        this.loading = false;
+      },
+      err => { console.error ('Error: ', err); }
+    );
   }
 }
