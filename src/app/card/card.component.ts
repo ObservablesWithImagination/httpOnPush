@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 import { CardHero } from './card.entity';
 
@@ -6,7 +6,8 @@ import { CardHero } from './card.entity';
     // tslint:disable-next-line:component-selector
     selector: 'hero-card',
     templateUrl: './card.component.html',
-    styleUrls: ['./card.component.css']
+    styleUrls: ['./card.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CardComponent {
     @Input()

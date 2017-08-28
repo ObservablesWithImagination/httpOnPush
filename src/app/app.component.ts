@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { SuperHeroService } from './superHero.service';
 
 import { Observable } from 'rxjs/Observable';
@@ -8,7 +8,8 @@ import { CardHero } from './card/card.entity';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
   heroName = '';
@@ -21,7 +22,7 @@ export class AppComponent {
     this.loading = true;
     this._superHeroService.getHeroes(this.heroName)
     .subscribe(
-      data => { 
+      data => {
         this.listHeros = data;
         this.loading = false;
       },
