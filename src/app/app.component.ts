@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { SuperHeroService } from './superHero.service';
 
 import { Observable } from 'rxjs/Observable';
@@ -13,20 +13,23 @@ import { CardHero } from './card/card.entity';
 })
 export class AppComponent {
   heroName = '';
-  listHeros: CardHero[];
+  listHeros: Observable<CardHero[]>;
   loading = false;
 
-  constructor (private _superHeroService: SuperHeroService) {}
+  constructor (
+    private _superHeroService: SuperHeroService,
+    private _changeDetection: ChangeDetectorRef
+  ) {}
 
   lookforHero () {
     this.loading = true;
-    this._superHeroService.getHeroes(this.heroName)
-    .subscribe(
-      data => {
-        this.listHeros = data;
-        this.loading = false;
-      },
-      err => { console.error ('Error: ', err); }
-    );
+    this.listHeros = this._superHeroService.getHeroes(this.heroName);
+  }
+
+  removeLoading(event) {
+    if (this.loading) {
+      this.loading = event;
+      this._changeDetection.detectChanges();
+    }
   }
 }

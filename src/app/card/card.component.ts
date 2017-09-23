@@ -1,4 +1,11 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import {
+    Component,
+    Input,
+    ChangeDetectionStrategy,
+    Output,
+    AfterViewInit,
+    EventEmitter
+} from '@angular/core';
 
 import { CardHero } from './card.entity';
 
@@ -9,7 +16,14 @@ import { CardHero } from './card.entity';
     styleUrls: ['./card.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CardComponent {
+export class CardComponent implements AfterViewInit {
     @Input()
     hero: CardHero;
+
+    @Output()
+    iFinished: EventEmitter<boolean> = new EventEmitter();
+
+    ngAfterViewInit() {
+        this.iFinished.emit(false);
+    }
 }
